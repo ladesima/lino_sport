@@ -456,7 +456,10 @@
     <hr style="border-color: rgba(255, 255, 255, 0.18); opacity: 1;" class="my-3">
     <div class="row align-items-center small" style="color: rgba(255, 255, 255, 0.88);">
       <div class="col-md-6 text-center text-md-start">
-        &copy; {{ date('Y') }} <strong class="text-white">Lino Sport Center</strong>. All rights reserved.
+        <div>&copy; {{ date('Y') }} <strong class="text-white">Lino Sport Center</strong>. All rights reserved.</div>
+        <div class="mt-1" style="color: rgba(255, 255, 255, 0.8); font-size: 0.82rem;">
+          Developed by <strong style="color: #fde68a;">Muhammad Musyary, S.Kom</strong>
+        </div>
       </div>
       <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
         Buka Setiap Hari: <strong style="color: #fde68a;">08.00 - 23.00 WITA</strong>

@@ -84,6 +84,10 @@
     <main class="lx-content">
       @include('layouts.partials.flash')
       @yield('content')
+
+      <footer class="mt-4 pt-3 border-top text-center text-muted small d-print-none">
+        &copy; {{ date('Y') }} <strong>Lino Sport Center</strong> &middot; Developed by <strong class="text-dark">Muhammad Musyary, S.Kom</strong>
+      </footer>
     </main>
   </div>
 </div>
