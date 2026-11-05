@@ -111,70 +111,44 @@
               <p class="text-muted small mb-2">Scan kode QRIS di bawah ini menggunakan aplikasi Mobile Banking / E-Wallet (GoPay, OVO, Dana, ShopeePay, BCA, Mandiri, BRI, BNI, dll):</p>
 
               <!-- Kotak QRIS Statis -->
-              <div class="d-inline-block p-3 bg-white border border-2 rounded-4 shadow-sm my-2" style="max-width: 280px; width: 100%;">
+              <div class="d-inline-block p-3 bg-white border border-2 rounded-4 shadow-sm my-2 text-center" style="max-width: 340px; width: 100%;">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
-                  <span class="fw-extrabold text-dark small" style="letter-spacing: 0.5px;">QRIS</span>
+                  <span class="fw-extrabold text-dark small" style="letter-spacing: 0.5px;">QRIS RESMI</span>
                   <span class="badge bg-danger" style="font-size: 0.65rem;">GPN &bull; STANDAR NASIONAL</span>
                 </div>
                 <div class="fw-bold text-dark small">LINO SPORT CENTER</div>
-                <div class="text-muted mb-2" style="font-size: 0.7rem;">NMID: ID1026000881920</div>
+                <div class="text-muted mb-2 font-mono" style="font-size: 0.72rem;">NMID: ID1026630839623</div>
 
-                @if(file_exists(public_path('images/qris.png')))
-                  <img src="{{ asset('images/qris.png') }}" alt="QRIS Statis Lino Sport Center" class="img-fluid rounded-3 border p-1" style="max-height: 220px;">
-                @elseif(file_exists(public_path('images/qris.jpg')))
-                  <img src="{{ asset('images/qris.jpg') }}" alt="QRIS Statis Lino Sport Center" class="img-fluid rounded-3 border p-1" style="max-height: 220px;">
-                @else
-                  <div class="p-2 bg-white border rounded-3 d-inline-block">
-                    <svg viewBox="0 0 210 210" width="185" height="185" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QRIS Statis Lino Sport Center">
-                      <rect width="210" height="210" fill="#ffffff"/>
-                      <rect x="10" y="10" width="56" height="56" fill="#000"/>
-                      <rect x="18" y="18" width="40" height="40" fill="#fff"/>
-                      <rect x="26" y="26" width="24" height="24" fill="#000"/>
-                      <rect x="144" y="10" width="56" height="56" fill="#000"/>
-                      <rect x="152" y="18" width="40" height="40" fill="#fff"/>
-                      <rect x="160" y="26" width="24" height="24" fill="#000"/>
-                      <rect x="10" y="144" width="56" height="56" fill="#000"/>
-                      <rect x="18" y="152" width="40" height="40" fill="#fff"/>
-                      <rect x="26" y="160" width="24" height="24" fill="#000"/>
-                      <rect x="76" y="14" width="10" height="10" fill="#000"/>
-                      <rect x="96" y="14" width="20" height="10" fill="#000"/>
-                      <rect x="124" y="14" width="10" height="20" fill="#000"/>
-                      <rect x="76" y="34" width="20" height="10" fill="#000"/>
-                      <rect x="106" y="34" width="10" height="20" fill="#000"/>
-                      <rect x="76" y="54" width="10" height="10" fill="#000"/>
-                      <rect x="124" y="44" width="10" height="20" fill="#000"/>
-                      <rect x="14" y="76" width="20" height="10" fill="#000"/>
-                      <rect x="44" y="76" width="20" height="10" fill="#000"/>
-                      <rect x="14" y="96" width="10" height="20" fill="#000"/>
-                      <rect x="34" y="106" width="20" height="10" fill="#000"/>
-                      <rect x="54" y="124" width="10" height="10" fill="#000"/>
-                      <rect x="76" y="76" width="18" height="18" fill="#064e3b"/>
-                      <rect x="104" y="76" width="12" height="12" fill="#000"/>
-                      <rect x="124" y="76" width="10" height="20" fill="#000"/>
-                      <rect x="76" y="104" width="12" height="20" fill="#000"/>
-                      <rect x="98" y="98" width="22" height="22" fill="#059669"/>
-                      <rect x="128" y="106" width="10" height="18" fill="#000"/>
-                      <rect x="148" y="76" width="20" height="10" fill="#000"/>
-                      <rect x="178" y="76" width="20" height="20" fill="#000"/>
-                      <rect x="148" y="96" width="12" height="20" fill="#000"/>
-                      <rect x="168" y="106" width="20" height="10" fill="#000"/>
-                      <rect x="144" y="126" width="16" height="10" fill="#000"/>
-                      <rect x="172" y="126" width="26" height="10" fill="#000"/>
-                      <rect x="76" y="136" width="20" height="10" fill="#000"/>
-                      <rect x="106" y="136" width="10" height="20" fill="#000"/>
-                      <rect x="126" y="144" width="20" height="10" fill="#000"/>
-                      <rect x="76" y="156" width="12" height="20" fill="#000"/>
-                      <rect x="96" y="166" width="20" height="10" fill="#000"/>
-                      <rect x="126" y="166" width="10" height="30" fill="#000"/>
-                      <rect x="76" y="186" width="26" height="12" fill="#000"/>
-                      <rect x="148" y="148" width="32" height="32" fill="#000"/>
-                      <rect x="156" y="156" width="16" height="16" fill="#fff"/>
-                      <rect x="161" y="161" width="6" height="6" fill="#000"/>
-                      <rect x="186" y="148" width="12" height="24" fill="#000"/>
-                      <rect x="148" y="186" width="50" height="12" fill="#000"/>
-                    </svg>
-                  </div>
-                @endif
+                <div class="position-relative d-inline-block rounded-3 overflow-hidden border p-1 bg-white shadow-sm mb-2">
+                  @if(file_exists(public_path('images/qris.jpg')))
+                    <img src="{{ asset('images/qris.jpg') }}" alt="QRIS Resmi Lino Sport Center" class="img-fluid rounded-2" style="max-width: 290px; width: 100%; height: auto; display: block;">
+                  @elseif(file_exists(public_path('images/qris.png')))
+                    <img src="{{ asset('images/qris.png') }}" alt="QRIS Resmi Lino Sport Center" class="img-fluid rounded-2" style="max-width: 290px; width: 100%; height: auto; display: block;">
+                  @else
+                    <div class="p-2 bg-white border rounded-3 d-inline-block">
+                      <svg viewBox="0 0 210 210" width="185" height="185" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QRIS Statis Lino Sport Center">
+                        <rect width="210" height="210" fill="#ffffff"/>
+                        <rect x="10" y="10" width="56" height="56" fill="#000"/>
+                        <rect x="18" y="18" width="40" height="40" fill="#fff"/>
+                        <rect x="26" y="26" width="24" height="24" fill="#000"/>
+                        <rect x="144" y="10" width="56" height="56" fill="#000"/>
+                        <rect x="152" y="18" width="40" height="40" fill="#fff"/>
+                        <rect x="160" y="26" width="24" height="24" fill="#000"/>
+                        <rect x="10" y="144" width="56" height="56" fill="#000"/>
+                        <rect x="18" y="152" width="40" height="40" fill="#fff"/>
+                        <rect x="26" y="160" width="24" height="24" fill="#000"/>
+                        <rect x="76" y="76" width="18" height="18" fill="#064e3b"/>
+                        <rect x="98" y="98" width="22" height="22" fill="#059669"/>
+                      </svg>
+                    </div>
+                  @endif
+                </div>
+
+                <div class="d-flex justify-content-center gap-2 mt-1">
+                  <a href="{{ asset('images/qris.jpg') }}" download="QRIS_Lino_Sport_Center.jpg" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 small d-inline-flex align-items-center gap-1" style="font-size: 0.75rem;">
+                    <i class="bi bi-download"></i> Unduh Gambar QRIS
+                  </a>
+                </div>
               </div>
 
               <!-- Nominal Transfer -->

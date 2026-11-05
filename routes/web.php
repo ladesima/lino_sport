@@ -52,6 +52,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::get('bookings', [BookingAdminController::class, 'index'])->name('bookings.index');
     Route::get('bookings/schedule', [BookingAdminController::class, 'schedule'])->name('bookings.schedule');
+    Route::get('bookings/export', [BookingAdminController::class, 'export'])->name('bookings.export');
     Route::get('api/pending-alerts', [BookingAdminController::class, 'pendingAlerts'])->name('api.pending-alerts');
     Route::get('bookings/{booking}', [BookingAdminController::class, 'show'])->name('bookings.show');
     Route::get('bookings/{booking}/receipt', [BookingAdminController::class, 'receipt'])->name('bookings.receipt');

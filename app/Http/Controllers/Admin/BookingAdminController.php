@@ -45,6 +45,110 @@ class BookingAdminController extends Controller {
         return view('admin.bookings.index', compact('bookings', 'courts'));
     }
 
+    // Export Data Booking & Approval ke Format Microsoft Excel (.xlsx)
+    public function export(Request $request) {
+        Booking::cancelExpiredBookings();
+
+        $query = Booking::with(['user', 'court', 'approver'])->latest();
+        if ($request->filled('q')) {
+            $kw = trim($request->q);
+            $cleanId = preg_replace('/[^0-9]/', '', $kw);
+            $query->where(function ($sub) use ($kw, $cleanId) {
+                $sub->where('customer_name', 'like', "%{$kw}%")
+                    ->orWhere('customer_phone', 'like', "%{$kw}%")
+                    ->orWhere('customer_email', 'like', "%{$kw}%")
+                    ->orWhere('customer_nik', 'like', "%{$kw}%");
+                if ($cleanId !== '') $sub->orWhere('id', (int)$cleanId);
+            });
+        }
+        if ($request->status === 'unpaid') {
+            $query->where('status', '!=', 'cancelled')->whereColumn('paid_amount', '<', 'total_price');
+        } elseif ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('court')) $query->where('court_id', $request->court);
+        if ($request->filled('date')) $query->whereDate('start_dt', $request->date);
+
+        $bookings = $query->get();
+
+        $headers = [
+            'No',
+            'No. Invoice',
+            'ID Booking',
+            'Waktu Booking',
+            'Nama Pemesan',
+            'No. WhatsApp / HP',
+            'Email',
+            'Lapangan',
+            'Cabang Olahraga',
+            'Tanggal Main',
+            'Jam Mulai',
+            'Jam Selesai',
+            'Durasi (Jam)',
+            'Total Biaya (Rp)',
+            'Sudah Dibayar (Rp)',
+            'Sisa Tagihan (Rp)',
+            'Metode Bayar',
+            'Status Approval',
+            'Status Pelunasan',
+            'Bukti Transfer QRIS',
+            'Di-Approve Oleh',
+            'Waktu Approval',
+        ];
+
+        $statusLabels = [
+            'pending'   => 'Menunggu Approve',
+            'confirmed' => 'Sudah Di-Approve',
+            'cancelled' => 'Dibatalkan',
+        ];
+
+        $rows = [];
+        $no = 1;
+        foreach ($bookings as $b) {
+            $start = Carbon::parse($b->start_dt);
+            $end = Carbon::parse($b->end_dt);
+            $duration = max(1, (int)round(($end->timestamp - $start->timestamp) / 3600));
+            $sisa = max(0, (int)$b->total_price - (int)$b->paid_amount);
+            $isPaid = (int)$b->paid_amount >= (int)$b->total_price;
+
+            $rows[] = [
+                $no++,
+                '#' . $b->formatted_invoice_no,
+                $b->id,
+                $b->created_at ? $b->created_at->format('d/m/Y H:i') : '-',
+                $b->display_name,
+                $b->display_phone ?: '-',
+                $b->display_email ?: '-',
+                $b->court->name ?? '-',
+                ucfirst($b->court->sport ?? '-'),
+                $start->format('d/m/Y'),
+                $start->format('H:i'),
+                $end->format('H:i'),
+                $duration,
+                (int)$b->total_price,
+                (int)$b->paid_amount,
+                $sisa,
+                strtoupper($b->payment_method ?? 'LUNAS'),
+                $statusLabels[$b->status] ?? ucfirst($b->status),
+                $isPaid ? 'Lunas' : 'Belum Lunas',
+                !empty($b->payment_proof) ? 'Ada (' . asset($b->payment_proof) . ')' : 'Tidak Ada',
+                $b->approver->name ?? '-',
+                $b->approved_at ? Carbon::parse($b->approved_at)->format('d/m/Y H:i') : '-',
+            ];
+        }
+
+        $filterTag = '';
+        if ($request->filled('status')) {
+            $filterTag .= '_' . $request->status;
+        }
+        if ($request->filled('date')) {
+            $filterTag .= '_' . str_replace('-', '', $request->date);
+        }
+        $filename = 'data_booking' . $filterTag . '_' . date('Ymd_His') . '.xlsx';
+
+        return \App\Services\SimpleXlsxService::download($filename, $headers, $rows, 'Data Booking');
+    }
+
     // Endpoint API untuk Lonceng Notifikasi Realtime & Audio Chime di Panel Admin
     public function pendingAlerts(Request $request) {
         Booking::cancelExpiredBookings();

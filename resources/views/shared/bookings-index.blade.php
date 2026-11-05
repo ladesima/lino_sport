@@ -17,6 +17,10 @@
     <p class="lx-page-sub">Lihat preview bukti pembayaran QRIS yang diupload pelanggan, validasi &amp; approve jadwal, atau cetak struk.</p>
   </div>
   <div class="d-flex flex-wrap gap-2">
+    <a href="{{ route($prefix . '.bookings.export', request()->all()) }}" class="btn btn-success d-inline-flex align-items-center gap-1.5 shadow-sm" style="font-weight: 600;" title="Download data booking dalam format Microsoft Excel (.xlsx)">
+      <i class="bi bi-file-earmark-excel-fill"></i>
+      <span>Extract XLSX</span>
+    </a>
     <a href="{{ route($prefix . '.bookings.schedule') }}" class="btn btn-light">
       <i class="bi bi-calendar3-week me-1"></i> Jadwal Visual
     </a>
