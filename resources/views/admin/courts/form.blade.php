@@ -40,10 +40,10 @@
             <label class="lx-label">Foto Lapangan</label>
             <input type="file" name="image" class="form-control" accept="image/*">
             <span class="lx-help">Format: JPG, PNG, WEBP. Maksimal 2MB.</span>
-            @if($court->image)
+            @if($court->image_url)
               <div class="mt-3 p-2 bg-light rounded-3 border d-inline-block">
                 <small class="text-muted d-block mb-1">Foto saat ini:</small>
-                <img src="{{ asset('storage/' . $court->image) }}" alt="{{ $court->name }}" class="rounded-2 border" style="width: 140px; height: 90px; object-fit: cover;">
+                <img src="{{ $court->image_url }}" alt="{{ $court->name }}" class="rounded-2 border" style="width: 140px; height: 90px; object-fit: cover;">
               </div>
             @endif
           </div>

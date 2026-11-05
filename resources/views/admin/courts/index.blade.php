@@ -37,8 +37,8 @@
           <tr>
             <td class="lx-mono text-muted fw-semibold">#{{ $c->id }}</td>
             <td>
-              @if($c->image)
-                <img src="{{ asset('storage/' . $c->image) }}" alt="{{ $c->name }}" class="rounded-3 border" style="width: 64px; height: 44px; object-fit: cover;">
+              @if($c->image_url)
+                <img src="{{ $c->image_url }}" alt="{{ $c->name }}" class="rounded-3 border" style="width: 64px; height: 44px; object-fit: cover;">
               @else
                 <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center text-muted small" style="width: 64px; height: 44px; font-size: 0.7rem;">
                   <i class="bi bi-image"></i>

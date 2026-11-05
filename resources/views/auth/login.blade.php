@@ -138,10 +138,10 @@
         <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label class="form-label small fw-bold text-muted text-uppercase" style="font-size:0.75rem; letter-spacing:0.5px;">Email Login Admin</label>
+                <label class="form-label small fw-bold text-muted text-uppercase" style="font-size:0.75rem; letter-spacing:0.5px;">Email</label>
                 <div class="input-group">
                     <span class="input-group-text border-end-0"><i class="bi bi-envelope"></i></span>
-                    <input type="email" name="email" id="loginEmail" class="form-control border-start-0" value="{{ old('email') }}" required autofocus placeholder="admin@lino.com">
+                    <input type="email" name="email" id="loginEmail" class="form-control border-start-0" value="{{ old('email') }}" required autofocus placeholder="Masukkan email">
                 </div>
             </div>
 
@@ -149,17 +149,14 @@
                 <label class="form-label small fw-bold text-muted text-uppercase" style="font-size:0.75rem; letter-spacing:0.5px;">Password</label>
                 <div class="input-group">
                     <span class="input-group-text border-end-0"><i class="bi bi-lock"></i></span>
-                    <input type="password" name="password" id="loginPassword" class="form-control border-start-0" required placeholder="••••••••">
+                    <input type="password" name="password" id="loginPassword" class="form-control border-start-0" required placeholder="Masukkan password">
                 </div>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="form-check mb-0">
-                    <input type="checkbox" name="remember" class="form-check-input bg-dark border-secondary" id="remember" checked>
+                    <input type="checkbox" name="remember" class="form-check-input bg-dark border-secondary" id="remember">
                     <label class="form-check-label small text-muted" for="remember">Ingat Sesi Login</label>
-                </div>
-                <div class="d-flex gap-1">
-                    <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size: 0.7rem;" onclick="document.getElementById('loginEmail').value='admin@lino.com';document.getElementById('loginPassword').value='admin123';">Isi Demo Admin</button>
                 </div>
             </div>
 
