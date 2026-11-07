@@ -439,20 +439,20 @@
         return left + ' '.repeat(spaces) + right;
       };
 
-      const invoice = @json($booking->formatted_invoice_no);
-      const customer = @json($booking->display_name);
-      const phone = @json($booking->display_phone);
-      const court = @json($booking->court->name ?? 'Lapangan');
-      const sport = @json(ucfirst($booking->court->sport ?? ''));
-      const dateStr = @json($startDt->translatedFormat('d M Y'));
-      const timeStr = @json($startDt->format('H:i') . '-' . $endDt->format('H:i'));
-      const duration = @json($durHours);
-      const courtPrice = @json(number_format($courtPrice, 0, ',', '.'));
-      const total = @json(number_format($grandTotal, 0, ',', '.'));
-      const paid = @json(number_format($paidSoFar, 0, ',', '.'));
-      const sisa = @json(number_format($remaining, 0, ',', '.'));
-      const status = @json($isPaidAll ? 'LUNAS' : 'DP 50%');
-      const admin = @json($booking->approver->name ?? 'Kasir');
+      const invoice = {!! json_encode($booking->formatted_invoice_no) !!};
+      const customer = {!! json_encode($booking->display_name) !!};
+      const phone = {!! json_encode($booking->display_phone) !!};
+      const court = {!! json_encode($booking->court->name ?? 'Lapangan') !!};
+      const sport = {!! json_encode(ucfirst($booking->court->sport ?? '')) !!};
+      const dateStr = {!! json_encode($startDt->translatedFormat('d M Y')) !!};
+      const timeStr = {!! json_encode($startDt->format('H:i') . '-' . $endDt->format('H:i')) !!};
+      const duration = {!! json_encode($durHours) !!};
+      const courtPrice = {!! json_encode(number_format($courtPrice, 0, ',', '.')) !!};
+      const total = {!! json_encode(number_format($grandTotal, 0, ',', '.')) !!};
+      const paid = {!! json_encode(number_format($paidSoFar, 0, ',', '.')) !!};
+      const sisa = {!! json_encode(number_format($remaining, 0, ',', '.')) !!};
+      const status = {!! json_encode($isPaidAll ? 'LUNAS' : 'DP 50%') !!};
+      const admin = {!! json_encode($booking->approver->name ?? 'Kasir') !!};
 
       let text = "";
       text += padCenter("LINO SPORT CENTER") + "\n";
