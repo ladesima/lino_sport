@@ -44,18 +44,26 @@
 
     /* Kertas Struk Hitam Putih Murni */
     .receipt-wrapper {
-      max-width: 380px;
+      max-width: 320px;
       margin: 0 auto;
       background: #ffffff;
       color: #000000;
-      padding: 26px 22px;
+      padding: 18px 14px;
       border: 1px solid #000000;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      font-size: 0.82rem;
+    }
+
+    .receipt-wrapper.mode-80mm {
+      max-width: 380px;
+      padding: 26px 22px;
+      font-size: 0.88rem;
     }
 
     .receipt-wrapper.standard-mode {
-      max-width: 460px;
+      max-width: 500px;
       padding: 32px 28px;
+      font-size: 0.95rem;
     }
 
     .receipt-wrapper * {
@@ -170,13 +178,16 @@
         display: none !important;
       }
 
-      .receipt-wrapper,
-      .receipt-wrapper.standard-mode {
+      .receipt-wrapper {
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
         margin: 0 auto !important;
         width: 100% !important;
+        max-width: 52mm !important;
+      }
+
+      .receipt-wrapper.mode-80mm {
         max-width: 76mm !important;
       }
 
@@ -185,7 +196,7 @@
       }
 
       @page {
-        margin: 5mm;
+        margin: 2mm;
         size: auto;
       }
     }
@@ -224,18 +235,26 @@
         <i class="bi bi-arrow-left"></i> Kembali
       </button>
       <div class="btn-group btn-group-sm" role="group">
-        <button type="button" class="btn btn-dark" id="btnModeThermal" onclick="setMode('thermal')">
-          Thermal 80mm
+        <button type="button" class="btn btn-dark" id="btnMode58" onclick="setMode('58')">
+          58mm (ALGOO)
+        </button>
+        <button type="button" class="btn btn-outline-dark" id="btnMode80" onclick="setMode('80')">
+          80mm
         </button>
         <button type="button" class="btn btn-outline-dark" id="btnModeStandard" onclick="setMode('standard')">
-          Ukuran A4
+          A4
         </button>
       </div>
     </div>
 
-    <button onclick="window.print()" class="btn btn-dark btn-sm fw-bold px-3">
-      <i class="bi bi-printer-fill me-1"></i> Cetak Struk
-    </button>
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" onclick="printRawBT()" class="btn btn-success btn-sm fw-bold px-3 d-inline-flex align-items-center gap-1 shadow-sm" title="Kirim langsung ke printer Bluetooth ALGOO via RawBT">
+        <i class="bi bi-bluetooth"></i> Cetak Bluetooth (RawBT)
+      </button>
+      <button type="button" onclick="window.print()" class="btn btn-dark btn-sm fw-bold px-3">
+        <i class="bi bi-printer-fill me-1"></i> Cetak Browser
+      </button>
+    </div>
   </div>
 
   <!-- Lembar Struk Hitam Putih (Bukti Lunas & Selesai Bermain) -->
@@ -385,18 +404,87 @@
   <script>
     function setMode(mode) {
       const sheet = document.getElementById('receiptSheet');
+      const btn58 = document.getElementById('btnMode58');
+      const btn80 = document.getElementById('btnMode80');
       const btnStandard = document.getElementById('btnModeStandard');
-      const btnThermal = document.getElementById('btnModeThermal');
+
+      sheet.classList.remove('mode-80mm', 'standard-mode');
+      btn58.className = 'btn btn-outline-dark';
+      btn80.className = 'btn btn-outline-dark';
+      btnStandard.className = 'btn btn-outline-dark';
 
       if (mode === 'standard') {
         sheet.classList.add('standard-mode');
         btnStandard.className = 'btn btn-dark';
-        btnThermal.className = 'btn btn-outline-dark';
+      } else if (mode === '80') {
+        sheet.classList.add('mode-80mm');
+        btn80.className = 'btn btn-dark';
       } else {
-        sheet.classList.remove('standard-mode');
-        btnThermal.className = 'btn btn-dark';
-        btnStandard.className = 'btn btn-outline-dark';
+        btn58.className = 'btn btn-dark';
       }
+    }
+
+    function printRawBT() {
+      const padCenter = (str, len = 32) => {
+        str = String(str || '');
+        if (str.length >= len) return str;
+        const left = Math.floor((len - str.length) / 2);
+        return ' '.repeat(left) + str;
+      };
+
+      const padRow = (left, right, len = 32) => {
+        left = String(left || '');
+        right = String(right || '');
+        const spaces = Math.max(1, len - left.length - right.length);
+        return left + ' '.repeat(spaces) + right;
+      };
+
+      const invoice = @json($booking->formatted_invoice_no);
+      const customer = @json($booking->display_name);
+      const phone = @json($booking->display_phone);
+      const court = @json($booking->court->name ?? 'Lapangan');
+      const sport = @json(ucfirst($booking->court->sport ?? ''));
+      const dateStr = @json($startDt->translatedFormat('d M Y'));
+      const timeStr = @json($startDt->format('H:i') . '-' . $endDt->format('H:i'));
+      const duration = @json($durHours);
+      const courtPrice = @json(number_format($courtPrice, 0, ',', '.'));
+      const total = @json(number_format($grandTotal, 0, ',', '.'));
+      const paid = @json(number_format($paidSoFar, 0, ',', '.'));
+      const sisa = @json(number_format($remaining, 0, ',', '.'));
+      const status = @json($isPaidAll ? 'LUNAS' : 'DP 50%');
+      const admin = @json($booking->approver->name ?? 'Kasir');
+
+      let text = "";
+      text += padCenter("LINO SPORT CENTER") + "\n";
+      text += padCenter("ARENA OLAHRAGA TERBAIK") + "\n";
+      text += padCenter("WA: 0823-4379-7911") + "\n";
+      text += "=".repeat(32) + "\n";
+      text += padRow("No. Invoice:", "#" + invoice) + "\n";
+      text += padRow("Tanggal    :", dateStr) + "\n";
+      text += padRow("Jam Main   :", timeStr) + "\n";
+      text += padRow("Durasi     :", duration + " Jam") + "\n";
+      text += padRow("Pelanggan  :", customer) + "\n";
+      text += padRow("No. HP     :", phone) + "\n";
+      text += padRow("Lapangan   :", court) + "\n";
+      text += padRow("Cabang     :", sport) + "\n";
+      text += "-".repeat(32) + "\n";
+      text += padRow("Sewa Lapangan", "Rp" + courtPrice) + "\n";
+      text += "-".repeat(32) + "\n";
+      text += padRow("TOTAL TAGIHAN", "Rp" + total) + "\n";
+      text += padRow("SUDAH DIBAYAR", "Rp" + paid) + "\n";
+      if (sisa !== "0") {
+        text += padRow("SISA PELUNASAN", "Rp" + sisa) + "\n";
+      }
+      text += padRow("STATUS BOOKING", status) + "\n";
+      text += padRow("Admin/Kasir   ", admin) + "\n";
+      text += "=".repeat(32) + "\n";
+      text += padCenter("TERIMA KASIH TELAH BERMAIN!") + "\n";
+      text += padCenter("BUKTI SAH PENYELESAIAN SESI") + "\n";
+      text += padCenter("LINO SPORT CENTER") + "\n\n\n\n";
+
+      // Direct intent to RawBT printer app
+      const base64 = btoa(unescape(encodeURIComponent(text)));
+      window.location.href = "intent:base64," + base64 + "#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;";
     }
 
     @if(request()->boolean('autoprint'))
