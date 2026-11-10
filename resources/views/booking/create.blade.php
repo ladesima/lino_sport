@@ -88,7 +88,7 @@
     $otherFacilities = \App\Models\Rate::otherFacilitiesPricingInfo();
     $gymWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya info tiket harian dan pendaftaran member Gym. Terima kasih!");
     $biliarWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan meja & reservasi Biliar. Terima kasih!");
-    $pgWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya info tiket Playground & Boom Car. Terima kasih!");
+    $pgWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya info tiket Playground. Terima kasih!");
     $tmWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan & reservasi Tenis Meja. Terima kasih!");
   @endphp
   <!-- Card Informasi: Gym & Fitness Center Lino Sport -->
@@ -163,7 +163,7 @@
           <h5 class="fw-bold mb-0 text-dark">Biliar (Billiard Arena)</h5>
           <span class="badge bg-light text-success border small fw-bold">Per Jam</span>
         </div>
-        <p class="text-muted small mb-2" style="font-size:0.75rem;">Meja biliar standar turnamen, stik &amp; bola lengkap, ruangan ber-AC.</p>
+        <p class="text-muted small mb-2" style="font-size:0.75rem;">Meja biliar mulus, stik presisi, dan bola lengkap.</p>
 
         <div class="p-2.5 bg-light rounded-3 border mb-2 small">
           <div class="fw-bold text-dark mb-1" style="font-size:0.75rem;">

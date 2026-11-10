@@ -267,7 +267,7 @@
             </span>
           </div>
           <div class="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
-            <span class="text-white fw-bold small"><i class="bi bi-check-circle-fill text-warning me-1"></i> Meja Standar Turnamen &amp; Full AC</span>
+            <span class="text-white fw-bold small"><i class="bi bi-check-circle-fill text-warning me-1"></i> Meja Standar &amp; Stik Lengkap</span>
           </div>
         </div>
 
@@ -276,7 +276,7 @@
             <h5 class="fw-bold mb-0 text-dark">Biliar (Billiard Arena)</h5>
             <span class="badge bg-light text-success border fw-bold" style="font-size:0.7rem;">Per Jam</span>
           </div>
-          <p class="text-muted small mb-3">Area biliar nyaman ber-AC dengan meja mulus, stik presisi, dan bola lengkap.</p>
+          <p class="text-muted small mb-3">Area biliar nyaman dengan meja mulus, stik presisi, dan bola lengkap.</p>
 
           <div class="p-3 rounded-3 bg-light border mb-3">
             <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
@@ -325,7 +325,7 @@
             <h5 class="fw-bold mb-0 text-dark">Playground &amp; Boom Car</h5>
             <span class="badge bg-light text-success border fw-bold" style="font-size:0.7rem;">Kids Zone</span>
           </div>
-          <p class="text-muted small mb-3">Area bermain anak yang aman dan seru dengan wahana permainan lengkap &amp; Boom Car.</p>
+          <p class="text-muted small mb-3">Area bermain anak yang aman, bersih, dan seru dengan wahana permainan &amp; Boom Car.</p>
 
           <div class="p-3 rounded-3 bg-light border mb-2">
             <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
