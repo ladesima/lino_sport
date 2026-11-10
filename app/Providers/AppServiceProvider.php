@@ -48,7 +48,8 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 $hasGymRate = Rate::where('sport', 'gym')->exists();
-                if (!$hasGymRate) {
+                $hasBiliarRate = Rate::where('sport', 'biliar')->exists();
+                if (!$hasGymRate || !$hasBiliarRate) {
                     Rate::syncStandardRates();
                 }
 
@@ -59,9 +60,10 @@ class AppServiceProvider extends ServiceProvider
                     if (Schema::hasTable('equipment')) {
                         Equipment::query()->delete();
                         $equipments = [
-                            ['name' => 'Sewa Raket Padel (/raket)', 'price' => 25000],
-                            ['name' => 'Sewa Bola Padel 1 Tube (3 bola)', 'price' => 120000],
-                            ['name' => 'Sewa Bulu Badminton (/pcs)', 'price' => 15000],
+                            ['name' => 'Sewa Raket + Bola Padel (/raket)', 'price' => 25000],
+                            ['name' => 'Beli Bola Padel 1 Tube (3 bola)', 'price' => 120000],
+                            ['name' => 'Sewa Raket Badminton (/jam)', 'price' => 15000],
+                            ['name' => 'Shuttlecock Badminton (/pcs)', 'price' => 15000],
                             ['name' => 'Sewa Raket + Bola Pickleball (/raket)', 'price' => 15000],
                         ];
                         foreach ($equipments as $eq) {

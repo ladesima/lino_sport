@@ -185,6 +185,7 @@
 
     @php
       $gymPricing = \App\Models\Rate::gymPricingInfo();
+      $otherFacilities = \App\Models\Rate::otherFacilitiesPricingInfo();
     @endphp
     <!-- Card Khusus: Gym & Fitness Center Lino Sport -->
     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="480">
@@ -249,6 +250,161 @@
             <a href="https://wa.me/6282343797911?text={{ $gymWaText }}" target="_blank" class="btn btn-success w-100 fw-bold py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
               <i class="bi bi-whatsapp"></i>
               <span>Daftar / Info Gym via WA</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Khusus: Biliar (Billiard Arena) -->
+    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="520">
+      <div class="card card-custom h-100 d-flex flex-column border-2" style="border-color: #10b981;">
+        <div class="position-relative overflow-hidden" style="height: 215px;">
+          <img src="https://images.unsplash.com/photo-1611676279444-5577698aa13c?auto=format&fit=crop&w=800&q=80" alt="Biliar Lino Sport" class="w-100 h-100 transition-transform" style="object-fit: cover; transition: transform 0.5s ease;">
+          <div class="position-absolute top-0 start-0 m-3">
+            <span class="badge bg-success px-3 py-2 rounded-pill fw-bold text-uppercase shadow-sm">
+              <i class="bi bi-8-circle-fill me-1"></i> Biliar
+            </span>
+          </div>
+          <div class="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+            <span class="text-white fw-bold small"><i class="bi bi-check-circle-fill text-warning me-1"></i> Meja Standar Turnamen &amp; Full AC</span>
+          </div>
+        </div>
+
+        <div class="card-body p-4 d-flex flex-column flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h5 class="fw-bold mb-0 text-dark">Biliar (Billiard Arena)</h5>
+            <span class="badge bg-light text-success border fw-bold" style="font-size:0.7rem;">Per Jam</span>
+          </div>
+          <p class="text-muted small mb-3">Area biliar nyaman ber-AC dengan meja mulus, stik presisi, dan bola lengkap.</p>
+
+          <div class="p-3 rounded-3 bg-light border mb-3">
+            <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-clock-fill text-success me-1"></i>Tarif Sewa Meja Biliar</span>
+              <span class="badge bg-white text-muted border" style="font-size:0.65rem;">Setiap Hari</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small mb-1">
+              <span class="text-muted">Sewa Biliar:</span>
+              <strong class="text-success fs-6">{{ $otherFacilities['biliar']['price_formatted'] }}<small class="text-muted fw-normal">/jam</small></strong>
+            </div>
+            <div class="small text-muted mt-1" style="font-size:0.74rem;">
+              <i class="bi bi-check2-circle text-success me-1"></i>Sudah termasuk stik biliar, bola &amp; kapur (chalk).
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            @php
+              $biliarWaText = urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan meja & reservasi Biliar. Terima kasih!");
+            @endphp
+            <a href="https://wa.me/6282343797911?text={{ $biliarWaText }}" target="_blank" class="btn btn-success w-100 fw-bold py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
+              <i class="bi bi-whatsapp"></i>
+              <span>Info / Reservasi Biliar via WA</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Khusus: Playground & Kids Zone -->
+    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="560">
+      <div class="card card-custom h-100 d-flex flex-column border-2" style="border-color: #10b981;">
+        <div class="position-relative overflow-hidden" style="height: 215px;">
+          <img src="https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?auto=format&fit=crop&w=800&q=80" alt="Playground Lino Sport" class="w-100 h-100 transition-transform" style="object-fit: cover; transition: transform 0.5s ease;">
+          <div class="position-absolute top-0 start-0 m-3">
+            <span class="badge bg-success px-3 py-2 rounded-pill fw-bold text-uppercase shadow-sm">
+              <i class="bi bi-emoji-smile-fill me-1"></i> Playground
+            </span>
+          </div>
+          <div class="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+            <span class="text-white fw-bold small"><i class="bi bi-check-circle-fill text-warning me-1"></i> Wahana Anak Lengkap &amp; Boom Car</span>
+          </div>
+        </div>
+
+        <div class="card-body p-4 d-flex flex-column flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h5 class="fw-bold mb-0 text-dark">Playground &amp; Boom Car</h5>
+            <span class="badge bg-light text-success border fw-bold" style="font-size:0.7rem;">Kids Zone</span>
+          </div>
+          <p class="text-muted small mb-3">Area bermain anak yang aman dan seru dengan wahana permainan lengkap &amp; Boom Car.</p>
+
+          <div class="p-3 rounded-3 bg-light border mb-2">
+            <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-stars text-success me-1"></i>Tiket Masuk Playground</span>
+              <span class="badge bg-success" style="font-size:0.65rem;">Sepuasnya</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small">
+              <span class="text-muted">Bermain Sepuasnya:</span>
+              <strong class="text-success fs-6">{{ $otherFacilities['playground']['unlimited']['price_formatted'] }}</strong>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-3 bg-success bg-opacity-10 border border-success border-opacity-25 mb-3">
+            <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-car-front-fill text-success me-1"></i>Wahana Boom Car</span>
+              <span class="badge bg-white text-success border" style="font-size:0.65rem;">3 Putaran</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small">
+              <span class="text-muted">Tiket Boom Car:</span>
+              <strong class="text-dark">{{ $otherFacilities['playground']['boom_car']['price_formatted'] }}<small class="text-muted fw-normal">/3 putaran</small></strong>
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            @php
+              $pgWaText = urlencode("Halo Admin Lino Sport Center, saya ingin tanya informasi tiket Playground & wahana Boom Car. Terima kasih!");
+            @endphp
+            <a href="https://wa.me/6282343797911?text={{ $pgWaText }}" target="_blank" class="btn btn-success w-100 fw-bold py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
+              <i class="bi bi-whatsapp"></i>
+              <span>Info Playground via WA</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Khusus: Tenis Meja (Pingpong Arena) -->
+    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+      <div class="card card-custom h-100 d-flex flex-column border-2" style="border-color: #10b981;">
+        <div class="position-relative overflow-hidden" style="height: 215px;">
+          <img src="https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=800&q=80" alt="Tenis Meja Lino Sport" class="w-100 h-100 transition-transform" style="object-fit: cover; transition: transform 0.5s ease;">
+          <div class="position-absolute top-0 start-0 m-3">
+            <span class="badge bg-success px-3 py-2 rounded-pill fw-bold text-uppercase shadow-sm">
+              <i class="bi bi-circle-fill me-1"></i> Tenis Meja
+            </span>
+          </div>
+          <div class="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+            <span class="text-white fw-bold small"><i class="bi bi-check-circle-fill text-warning me-1"></i> Meja Standar &amp; Bet Lengkap</span>
+          </div>
+        </div>
+
+        <div class="card-body p-4 d-flex flex-column flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h5 class="fw-bold mb-0 text-dark">Tenis Meja (Pingpong)</h5>
+            <span class="badge bg-light text-success border fw-bold" style="font-size:0.7rem;">Per Jam</span>
+          </div>
+          <p class="text-muted small mb-3">Area bermain tenis meja indoor yang nyaman dengan pencahayaan terang dan sirkulasi udara sejuk.</p>
+
+          <div class="p-3 rounded-3 bg-light border mb-3">
+            <div class="fw-bold text-dark small mb-1.5 d-flex align-items-center justify-content-between">
+              <span><i class="bi bi-clock-fill text-success me-1"></i>Tarif Sewa Tenis Meja</span>
+              <span class="badge bg-white text-muted border" style="font-size:0.65rem;">Setiap Hari</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small mb-1">
+              <span class="text-muted">Sewa Tenis Meja:</span>
+              <strong class="text-success fs-6">{{ $otherFacilities['tenis_meja']['price_formatted'] }}<small class="text-muted fw-normal">/jam</small></strong>
+            </div>
+            <div class="small text-muted mt-1" style="font-size:0.74rem;">
+              <i class="bi bi-check2-circle text-success me-1"></i>Sudah termasuk peminjaman bet &amp; bola pingpong.
+            </div>
+          </div>
+
+          <div class="mt-auto">
+            @php
+              $tmWaText = urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan & reservasi Tenis Meja. Terima kasih!");
+            @endphp
+            <a href="https://wa.me/6282343797911?text={{ $tmWaText }}" target="_blank" class="btn btn-success w-100 fw-bold py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
+              <i class="bi bi-whatsapp"></i>
+              <span>Info / Reservasi Tenis Meja via WA</span>
             </a>
           </div>
         </div>

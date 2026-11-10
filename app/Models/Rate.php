@@ -9,28 +9,70 @@ class Rate extends Model {
         // Padel
         ['sport' => 'padel', 'day_type' => 'weekday_day',   'price' => 250000],
         ['sport' => 'padel', 'day_type' => 'weekday_night', 'price' => 300000],
-        ['sport' => 'padel', 'day_type' => 'weekend_day',   'price' => 270000],
-        ['sport' => 'padel', 'day_type' => 'weekend_night', 'price' => 320000],
+        ['sport' => 'padel', 'day_type' => 'weekend_day',   'price' => 300000],
+        ['sport' => 'padel', 'day_type' => 'weekend_night', 'price' => 350000],
 
         // Badminton (bulutangkis)
-        ['sport' => 'bulutangkis', 'day_type' => 'weekday_day',   'price' => 70000],
-        ['sport' => 'bulutangkis', 'day_type' => 'weekday_night', 'price' => 80000],
-        ['sport' => 'bulutangkis', 'day_type' => 'weekend_day',   'price' => 90000],
-        ['sport' => 'bulutangkis', 'day_type' => 'weekday_night_fallback', 'price' => 80000], // internal fallback not seeded
-        ['sport' => 'bulutangkis', 'day_type' => 'weekend_night', 'price' => 100000],
+        ['sport' => 'bulutangkis', 'day_type' => 'weekday_day',   'price' => 60000],
+        ['sport' => 'bulutangkis', 'day_type' => 'weekday_night', 'price' => 70000],
+        ['sport' => 'bulutangkis', 'day_type' => 'weekend_day',   'price' => 70000],
+        ['sport' => 'bulutangkis', 'day_type' => 'weekday_night_fallback', 'price' => 70000], // internal fallback not seeded
+        ['sport' => 'bulutangkis', 'day_type' => 'weekend_night', 'price' => 80000],
 
         // Pickleball
-        ['sport' => 'pickleball', 'day_type' => 'weekday_day',   'price' => 100000],
-        ['sport' => 'pickleball', 'day_type' => 'weekday_night', 'price' => 120000],
-        ['sport' => 'pickleball', 'day_type' => 'weekend_day',   'price' => 120000],
-        ['sport' => 'pickleball', 'day_type' => 'weekend_night', 'price' => 140000],
+        ['sport' => 'pickleball', 'day_type' => 'weekday_day',   'price' => 70000],
+        ['sport' => 'pickleball', 'day_type' => 'weekday_night', 'price' => 80000],
+        ['sport' => 'pickleball', 'day_type' => 'weekend_day',   'price' => 80000],
+        ['sport' => 'pickleball', 'day_type' => 'weekend_night', 'price' => 90000],
 
         // Gym & Fitness Center
         ['sport' => 'gym', 'day_type' => 'weekday', 'price' => 35000],
         ['sport' => 'gym', 'day_type' => 'weekend', 'price' => 50000],
         ['sport' => 'gym', 'day_type' => 'member',  'price' => 200000],
         ['sport' => 'gym', 'day_type' => 'admin',   'price' => 50000],
+
+        // Biliar, Tenis Meja & Playground
+        ['sport' => 'biliar',     'day_type' => 'per_hour',  'price' => 35000],
+        ['sport' => 'tenis_meja', 'day_type' => 'per_hour',  'price' => 35000],
+        ['sport' => 'playground', 'day_type' => 'unlimited', 'price' => 50000],
+        ['sport' => 'playground', 'day_type' => 'boom_car',  'price' => 15000],
     ];
+
+    /**
+     * Informasi tarif Biliar, Tenis Meja & Playground
+     */
+    public static function otherFacilitiesPricingInfo(): array {
+        $biliarPrice     = (int)(self::where('sport', 'biliar')->where('day_type', 'per_hour')->value('price') ?? 35000);
+        $tenisMejaPrice  = (int)(self::where('sport', 'tenis_meja')->where('day_type', 'per_hour')->value('price') ?? 35000);
+        $pgRates         = self::where('sport', 'playground')->pluck('price', 'day_type')->toArray();
+        $pgUnlimited     = (int)($pgRates['unlimited'] ?? 50000);
+        $pgBoomCar       = (int)($pgRates['boom_car'] ?? 15000);
+
+        return [
+            'biliar' => [
+                'per_hour'        => $biliarPrice,
+                'price_formatted' => 'Rp' . number_format($biliarPrice, 0, ',', '.'),
+                'unit'            => '/jam',
+            ],
+            'tenis_meja' => [
+                'per_hour'        => $tenisMejaPrice,
+                'price_formatted' => 'Rp' . number_format($tenisMejaPrice, 0, ',', '.'),
+                'unit'            => '/jam',
+            ],
+            'playground' => [
+                'unlimited' => [
+                    'price'           => $pgUnlimited,
+                    'price_formatted' => 'Rp' . number_format($pgUnlimited, 0, ',', '.'),
+                    'unit'            => 'Sepuasnya',
+                ],
+                'boom_car' => [
+                    'price'           => $pgBoomCar,
+                    'price_formatted' => 'Rp' . number_format($pgBoomCar, 0, ',', '.'),
+                    'unit'            => '/3 putaran',
+                ],
+            ],
+        ];
+    }
 
     /**
      * Informasi tarif Gym & Fitness Center (Tiket Harian, Membership & Biaya Administrasi)
@@ -79,11 +121,12 @@ class Rate extends Model {
     public static function sportEquipmentInfo(string $sport): array {
         return match (strtolower($sport)) {
             'padel' => [
-                ['label' => 'Sewa Raket Padel', 'price' => 'Rp25.000/raket'],
-                ['label' => 'Sewa Bola Padel (1 Tube / 3 Bola)', 'price' => 'Rp120.000'],
+                ['label' => 'Sewa Raket + Bola Padel', 'price' => 'Rp25.000/raket'],
+                ['label' => 'Beli Bola Padel (1 Tube)', 'price' => 'Rp120.000'],
             ],
             'bulutangkis' => [
-                ['label' => 'Sewa Bulu (Shuttlecock)', 'price' => 'Rp15.000/pcs'],
+                ['label' => 'Sewa Raket Badminton', 'price' => 'Rp15.000/jam'],
+                ['label' => 'Shuttlecock (Bola Bulu)', 'price' => 'Rp15.000/pcs'],
             ],
             'pickleball' => [
                 ['label' => 'Sewa Raket + Bola Pickleball', 'price' => 'Rp15.000/raket'],
@@ -110,6 +153,28 @@ class Rate extends Model {
             };
         }
 
+        if ($this->sport === 'biliar') {
+            return match ($this->day_type) {
+                'per_hour' => 'Sewa Meja Biliar (Per Jam)',
+                default    => $this->day_type,
+            };
+        }
+
+        if ($this->sport === 'tenis_meja') {
+            return match ($this->day_type) {
+                'per_hour' => 'Sewa Tenis Meja (Per Jam)',
+                default    => $this->day_type,
+            };
+        }
+
+        if ($this->sport === 'playground') {
+            return match ($this->day_type) {
+                'unlimited' => 'Bermain Sepuasnya (All Day)',
+                'boom_car'  => 'Wahana Boom Car (Per 3 Putaran)',
+                default     => $this->day_type,
+            };
+        }
+
         return match ($this->day_type) {
             'weekday_day'              => 'Senin – Jumat (08.00 – 16.00)',
             'weekday_night'            => 'Senin – Jumat (16.00 – 23.00)',
@@ -117,6 +182,7 @@ class Rate extends Model {
             'weekend_night'            => 'Sabtu – Minggu (16.00 – 23.00)',
             'weekday'                  => 'Senin – Jumat (08.00 – 16.00)',
             'weekend'                  => 'Sabtu – Minggu (08.00 – 16.00)',
+            'per_hour'                 => 'Tarif Sewa Per Jam',
             default                    => $this->day_type,
         };
     }
@@ -145,15 +211,15 @@ class Rate extends Model {
         $defaults = [
             'padel' => [
                 'weekday_day' => 250000, 'weekday_night' => 300000,
-                'weekend_day' => 270000, 'weekend_night' => 320000,
+                'weekend_day' => 300000, 'weekend_night' => 350000,
             ],
             'bulutangkis' => [
-                'weekday_day' => 70000, 'weekday_night' => 80000,
-                'weekend_day' => 90000, 'weekend_night' => 100000,
+                'weekday_day' => 60000, 'weekday_night' => 70000,
+                'weekend_day' => 70000, 'weekend_night' => 80000,
             ],
             'pickleball' => [
-                'weekday_day' => 100000, 'weekday_night' => 120000,
-                'weekend_day' => 120000, 'weekend_night' => 140000,
+                'weekday_day' => 70000, 'weekday_night' => 80000,
+                'weekend_day' => 80000, 'weekend_night' => 90000,
             ],
         ][$sport] ?? [
             'weekday_day' => 0, 'weekday_night' => 0,
@@ -196,30 +262,36 @@ class Rate extends Model {
     }
 
     /**
-     * Sinkronisasi otomatis 12 tarif standar baru ke tabel rates
+     * Sinkronisasi otomatis seluruh tarif standar ke tabel rates
      */
     public static function syncStandardRates(): void {
         $standard = [
             ['sport' => 'padel',       'day_type' => 'weekday_day',   'price' => 250000],
             ['sport' => 'padel',       'day_type' => 'weekday_night', 'price' => 300000],
-            ['sport' => 'padel',       'day_type' => 'weekend_day',   'price' => 270000],
-            ['sport' => 'padel',       'day_type' => 'weekend_night', 'price' => 320000],
+            ['sport' => 'padel',       'day_type' => 'weekend_day',   'price' => 300000],
+            ['sport' => 'padel',       'day_type' => 'weekend_night', 'price' => 350000],
 
-            ['sport' => 'bulutangkis', 'day_type' => 'weekday_day',   'price' => 70000],
-            ['sport' => 'bulutangkis', 'day_type' => 'weekday_night', 'price' => 80000],
-            ['sport' => 'bulutangkis', 'day_type' => 'weekend_day',   'price' => 90000],
-            ['sport' => 'bulutangkis', 'day_type' => 'weekend_night', 'price' => 100000],
+            ['sport' => 'bulutangkis', 'day_type' => 'weekday_day',   'price' => 60000],
+            ['sport' => 'bulutangkis', 'day_type' => 'weekday_night', 'price' => 70000],
+            ['sport' => 'bulutangkis', 'day_type' => 'weekend_day',   'price' => 70000],
+            ['sport' => 'bulutangkis', 'day_type' => 'weekend_night', 'price' => 80000],
 
-            ['sport' => 'pickleball',  'day_type' => 'weekday_day',   'price' => 100000],
-            ['sport' => 'pickleball',  'day_type' => 'weekday_night', 'price' => 120000],
-            ['sport' => 'pickleball',  'day_type' => 'weekend_day',   'price' => 120000],
-            ['sport' => 'pickleball',  'day_type' => 'weekend_night', 'price' => 140000],
+            ['sport' => 'pickleball',  'day_type' => 'weekday_day',   'price' => 70000],
+            ['sport' => 'pickleball',  'day_type' => 'weekday_night', 'price' => 80000],
+            ['sport' => 'pickleball',  'day_type' => 'weekend_day',   'price' => 80000],
+            ['sport' => 'pickleball',  'day_type' => 'weekend_night', 'price' => 90000],
 
             // Tarif Gym & Kebugaran
             ['sport' => 'gym',         'day_type' => 'weekday',       'price' => 35000],
             ['sport' => 'gym',         'day_type' => 'weekend',       'price' => 50000],
             ['sport' => 'gym',         'day_type' => 'member',        'price' => 200000],
             ['sport' => 'gym',         'day_type' => 'admin',         'price' => 50000],
+
+            // Tarif Biliar, Tenis Meja & Playground
+            ['sport' => 'biliar',      'day_type' => 'per_hour',      'price' => 35000],
+            ['sport' => 'tenis_meja',  'day_type' => 'per_hour',      'price' => 35000],
+            ['sport' => 'playground',  'day_type' => 'unlimited',     'price' => 50000],
+            ['sport' => 'playground',  'day_type' => 'boom_car',      'price' => 15000],
         ];
 
         self::whereIn('day_type', ['weekday', 'weekend'])->where('sport', '!=', 'gym')->delete();

@@ -29,17 +29,25 @@
           <tbody>
             @forelse($rates as $r)
               @php
-                $sportLabel = $r->sport === 'bulutangkis' ? 'Badminton' : ($r->sport === 'gym' ? 'Gym & Fitness' : ucfirst($r->sport));
+                $sportLabel = match($r->sport) {
+                  'bulutangkis' => 'Badminton',
+                  'gym'         => 'Gym & Fitness',
+                  'biliar'      => 'Biliar',
+                  'tenis_meja'  => 'Tenis Meja',
+                  'playground'  => 'Playground',
+                  default       => ucfirst($r->sport),
+                };
+                $isFacility = in_array($r->sport, ['gym', 'biliar', 'tenis_meja', 'playground'], true);
               @endphp
               <tr>
                 <td class="ps-4">
                   <span class="fw-semibold text-dark">{{ $sportLabel }}</span>
-                  @if($r->sport === 'gym')
+                  @if($isFacility)
                     <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 ms-1" style="font-size:0.65rem;">Fasilitas</span>
                   @endif
                 </td>
                 <td>
-                  @if($r->sport === 'gym')
+                  @if($isFacility)
                     <span class="lx-pill lx-pill-success">{{ $r->session_label }}</span>
                   @elseif(str_starts_with($r->day_type, 'weekend'))
                     <span class="lx-pill lx-pill-warning">{{ $r->session_label }}</span>
@@ -98,6 +106,9 @@
               <option value="bulutangkis">Badminton (Bulutangkis)</option>
               <option value="pickleball">Pickleball</option>
               <option value="gym">Gym &amp; Fitness Center</option>
+              <option value="biliar">Biliar (Billiard Arena)</option>
+              <option value="tenis_meja">Tenis Meja (Pingpong)</option>
+              <option value="playground">Playground &amp; Boom Car</option>
             </select>
           </div>
           <div class="mb-3">
@@ -114,6 +125,11 @@
                 <option value="weekend">Sabtu – Minggu (Daily Pass / Harian)</option>
                 <option value="member">Member Bulanan (Akses Penuh)</option>
                 <option value="admin">Biaya Administrasi Registrasi</option>
+              </optgroup>
+              <optgroup label="Tarif Biliar, Tenis Meja &amp; Playground">
+                <option value="per_hour">Sewa Per Jam (Biliar / Tenis Meja)</option>
+                <option value="unlimited">Bermain Sepuasnya (Playground)</option>
+                <option value="boom_car">Wahana Boom Car Per 3 Putaran (Playground)</option>
               </optgroup>
             </select>
           </div>

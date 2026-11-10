@@ -85,7 +85,11 @@
 
   @php
     $gymPricing = \App\Models\Rate::gymPricingInfo();
+    $otherFacilities = \App\Models\Rate::otherFacilitiesPricingInfo();
     $gymWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya info tiket harian dan pendaftaran member Gym. Terima kasih!");
+    $biliarWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan meja & reservasi Biliar. Terima kasih!");
+    $pgWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya info tiket Playground & Boom Car. Terima kasih!");
+    $tmWaUrl = "https://wa.me/6282343797911?text=" . urlencode("Halo Admin Lino Sport Center, saya ingin tanya ketersediaan & reservasi Tenis Meja. Terima kasih!");
   @endphp
   <!-- Card Informasi: Gym & Fitness Center Lino Sport -->
   <div class="col-md-6 col-lg-4">
@@ -136,6 +140,130 @@
         <a href="{{ $gymWaUrl }}" target="_blank" class="btn btn-outline-success w-100 fw-bold py-2 rounded-3 mt-auto d-flex align-items-center justify-content-center gap-1.5 shadow-sm">
           <i class="bi bi-whatsapp"></i>
           <span>Daftar / Info Member WA</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Informasi: Biliar -->
+  <div class="col-md-6 col-lg-4">
+    <div class="card card-custom h-100 position-relative border-2" style="border-color:#10b981;">
+      <div class="position-relative overflow-hidden" style="height: 180px;">
+        <img src="https://images.unsplash.com/photo-1611676279444-5577698aa13c?auto=format&fit=crop&w=800&q=80" alt="Biliar Lino Sport" class="w-100 h-100" style="object-fit: cover;">
+        <span class="position-absolute top-0 start-0 m-2 badge bg-success text-uppercase px-3 py-2 rounded-pill small shadow-sm">
+          <i class="bi bi-8-circle-fill me-1"></i> Biliar
+        </span>
+        <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark bg-opacity-80 small">
+          Offline di Lokasi
+        </span>
+      </div>
+
+      <div class="card-body p-3 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <h5 class="fw-bold mb-0 text-dark">Biliar (Billiard Arena)</h5>
+          <span class="badge bg-light text-success border small fw-bold">Per Jam</span>
+        </div>
+        <p class="text-muted small mb-2" style="font-size:0.75rem;">Meja biliar standar turnamen, stik &amp; bola lengkap, ruangan ber-AC.</p>
+
+        <div class="p-2.5 bg-light rounded-3 border mb-2 small">
+          <div class="fw-bold text-dark mb-1" style="font-size:0.75rem;">
+            <i class="bi bi-clock text-success me-1"></i>Tarif Sewa Biliar:
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem;">
+            <span>Sewa Meja Biliar:</span>
+            <strong class="text-success">{{ $otherFacilities['biliar']['price_formatted'] }}/jam</strong>
+          </div>
+          <div class="text-muted mt-1" style="font-size:0.72rem;">
+            Sudah termasuk peminjaman stik, bola &amp; chalk.
+          </div>
+        </div>
+
+        <a href="{{ $biliarWaUrl }}" target="_blank" class="btn btn-outline-success w-100 fw-bold py-2 rounded-3 mt-auto d-flex align-items-center justify-content-center gap-1.5 shadow-sm">
+          <i class="bi bi-whatsapp"></i>
+          <span>Info / Reservasi Biliar WA</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Informasi: Playground & Boom Car -->
+  <div class="col-md-6 col-lg-4">
+    <div class="card card-custom h-100 position-relative border-2" style="border-color:#10b981;">
+      <div class="position-relative overflow-hidden" style="height: 180px;">
+        <img src="https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?auto=format&fit=crop&w=800&q=80" alt="Playground Lino Sport" class="w-100 h-100" style="object-fit: cover;">
+        <span class="position-absolute top-0 start-0 m-2 badge bg-success text-uppercase px-3 py-2 rounded-pill small shadow-sm">
+          <i class="bi bi-emoji-smile-fill me-1"></i> Playground
+        </span>
+        <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark bg-opacity-80 small">
+          Offline di Lokasi
+        </span>
+      </div>
+
+      <div class="card-body p-3 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <h5 class="fw-bold mb-0 text-dark">Playground &amp; Boom Car</h5>
+          <span class="badge bg-light text-success border small fw-bold">Kids Zone</span>
+        </div>
+        <p class="text-muted small mb-2" style="font-size:0.75rem;">Area bermain anak aman &amp; seru selagi orang tua berolahraga.</p>
+
+        <div class="p-2.5 bg-light rounded-3 border mb-2 small">
+          <div class="fw-bold text-dark mb-1" style="font-size:0.75rem;">
+            <i class="bi bi-stars text-success me-1"></i>Tiket Playground &amp; Wahana:
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem;">
+            <span>Playground Sepuasnya:</span>
+            <strong class="text-success">{{ $otherFacilities['playground']['unlimited']['price_formatted'] }}</strong>
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem;">
+            <span>Boom Car:</span>
+            <strong class="text-dark">{{ $otherFacilities['playground']['boom_car']['price_formatted'] }}/3 putaran</strong>
+          </div>
+        </div>
+
+        <a href="{{ $pgWaUrl }}" target="_blank" class="btn btn-outline-success w-100 fw-bold py-2 rounded-3 mt-auto d-flex align-items-center justify-content-center gap-1.5 shadow-sm">
+          <i class="bi bi-whatsapp"></i>
+          <span>Info Playground WA</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Informasi: Tenis Meja -->
+  <div class="col-md-6 col-lg-4">
+    <div class="card card-custom h-100 position-relative border-2" style="border-color:#10b981;">
+      <div class="position-relative overflow-hidden" style="height: 180px;">
+        <img src="https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=800&q=80" alt="Tenis Meja Lino Sport" class="w-100 h-100" style="object-fit: cover;">
+        <span class="position-absolute top-0 start-0 m-2 badge bg-success text-uppercase px-3 py-2 rounded-pill small shadow-sm">
+          <i class="bi bi-circle-fill me-1"></i> Tenis Meja
+        </span>
+        <span class="position-absolute bottom-0 end-0 m-2 badge bg-dark bg-opacity-80 small">
+          Offline di Lokasi
+        </span>
+      </div>
+
+      <div class="card-body p-3 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <h5 class="fw-bold mb-0 text-dark">Tenis Meja (Pingpong)</h5>
+          <span class="badge bg-light text-success border small fw-bold">Per Jam</span>
+        </div>
+        <p class="text-muted small mb-2" style="font-size:0.75rem;">Area tenis meja indoor terang, nyaman &amp; sudah termasuk bet.</p>
+
+        <div class="p-2.5 bg-light rounded-3 border mb-2 small">
+          <div class="fw-bold text-dark mb-1" style="font-size:0.75rem;">
+            <i class="bi bi-clock text-success me-1"></i>Tarif Sewa Tenis Meja:
+          </div>
+          <div class="d-flex justify-content-between text-muted" style="font-size:0.76rem;">
+            <span>Sewa Tenis Meja:</span>
+            <strong class="text-success">{{ $otherFacilities['tenis_meja']['price_formatted'] }}/jam</strong>
+          </div>
+          <div class="text-muted mt-1" style="font-size:0.72rem;">
+            Sudah termasuk peminjaman bet &amp; bola pingpong.
+          </div>
+        </div>
+
+        <a href="{{ $tmWaUrl }}" target="_blank" class="btn btn-outline-success w-100 fw-bold py-2 rounded-3 mt-auto d-flex align-items-center justify-content-center gap-1.5 shadow-sm">
+          <i class="bi bi-whatsapp"></i>
+          <span>Info / Reservasi Tenis Meja WA</span>
         </a>
       </div>
     </div>
