@@ -269,6 +269,86 @@
             70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+
+        /* ================= FLOATING WHATSAPP CUSTOMER SERVICE ================= */
+        .wa-float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9990;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 12px 20px 12px 16px;
+            border-radius: 999px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4), 0 4px 10px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .wa-float-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 14px 32px rgba(37, 211, 102, 0.55), 0 6px 14px rgba(0, 0, 0, 0.16);
+            color: #ffffff !important;
+        }
+
+        .wa-float-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+            animation: wa-pulse 2.2s infinite;
+        }
+
+        .wa-float-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+            text-align: left;
+        }
+
+        .wa-float-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.92;
+            font-weight: 700;
+        }
+
+        .wa-float-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        @keyframes wa-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        @media (max-width: 576px) {
+            .wa-float-btn {
+                bottom: 18px;
+                right: 18px;
+                padding: 10px 16px 10px 12px;
+            }
+            .wa-float-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+            .wa-float-title {
+                font-size: 0.82rem;
+            }
+        }
     </style>
     @yield('styles')
 </head>
@@ -467,6 +547,25 @@
     </div>
   </div>
 </footer>
+
+<!-- Floating WhatsApp Customer Service Button -->
+@php
+  $csWaNumber = config('services.whatsapp.admin_number', '6282343797911') ?: '6282343797911';
+  $csWaMessage = urlencode('Halo Customer Service Lino Sport Center, saya ingin bertanya mengenai informasi & reservasi lapangan.');
+@endphp
+<a href="https://wa.me/{{ $csWaNumber }}?text={{ $csWaMessage }}"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="wa-float-btn"
+   title="Hubungi Customer Service via WhatsApp">
+  <span class="wa-float-icon">
+    <i class="bi bi-whatsapp"></i>
+  </span>
+  <span class="wa-float-text">
+    <span class="wa-float-label">Butuh Bantuan?</span>
+    <span class="wa-float-title">Customer Service</span>
+  </span>
+</a>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

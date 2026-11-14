@@ -48,9 +48,6 @@ class BookingController extends Controller {
             // 1. Jam sudah lewat dari waktu realtime sekarang
             $isPast = $slotEnd <= $now || $slotStart <= $now;
 
-            // 2. Jam belum lewat tapi kurang dari 1 jam sebelum waktu mulai
-            $isTooSoon = !$isPast && ($slotStart < $now->copy()->addHours(1));
-
             $bookingMatch = $bookings->first(function ($b) use ($slotStart, $slotEnd) {
                 $bStart = Carbon::parse($b->start_dt);
                 $bEnd   = Carbon::parse($b->end_dt);
@@ -72,9 +69,6 @@ class BookingController extends Controller {
             } elseif ($isPast) {
                 $status = 'disabled';
                 $badge  = 'Lewat';
-            } elseif ($isTooSoon) {
-                $status = 'disabled';
-                $badge  = '< 1 Jam';
             }
 
             $slots[] = [
@@ -132,13 +126,9 @@ class BookingController extends Controller {
         $end   = Carbon::parse($request->date . ' ' . $request->end_time);
         $now   = Carbon::now();
 
-        // 1. Validasi jam sudah lewat atau kurang dari 1 jam sebelum waktu mulai
+        // 1. Validasi jam sudah lewat dari waktu saat ini
         if ($start <= $now) {
             return back()->withErrors(['start_time' => 'Jam bermain yang dipilih sudah lewat dari waktu saat ini.'])->withInput();
-        }
-
-        if ($start < $now->copy()->addHours(1)) {
-            return back()->withErrors(['start_time' => 'Booking harus dibuat minimal 1 jam sebelum waktu bermain.'])->withInput();
         }
 
         // 2. Validasi urutan waktu

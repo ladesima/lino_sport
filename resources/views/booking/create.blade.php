@@ -320,7 +320,7 @@
               <span class="text-muted">Terbooking</span>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <span class="rounded-pill px-2 py-0.5 text-muted bg-secondary bg-opacity-25 fw-bold" style="font-size:0.7rem;">LEWAT / &lt; 1 JAM</span>
+              <span class="rounded-pill px-2 py-0.5 text-muted bg-secondary bg-opacity-25 fw-bold" style="font-size:0.7rem;">LEWAT</span>
               <span class="text-muted">Tidak Tersedia</span>
             </div>
           </div>

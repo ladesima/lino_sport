@@ -64,7 +64,6 @@
       <div>
         <h6 class="fw-bold mb-1 text-dark">Buka Setiap Hari: 08.00 – 23.00 WIB</h6>
         <div class="text-muted small">
-          <span class="badge bg-light text-dark border me-1"><i class="bi bi-clock me-1 text-primary"></i>Min. 1 Jam Sebelum Main</span>
           <span class="badge bg-light text-dark border me-1"><i class="bi bi-shield-check me-1 text-success"></i>Bebas Durasi Jam (Selama Ready)</span>
           <span class="badge bg-light text-dark border"><i class="bi bi-qr-code me-1 text-success"></i>Pembayaran QRIS Statis & Approval Admin</span>
         </div>
